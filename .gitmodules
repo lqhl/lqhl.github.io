@@ -5,3 +5,6 @@
 	path = public
 	url = git@github.com:lqhl/lqhl.github.io.git
 	branch = master
+[submodule "themes/hugo-natrium-theme"]
+	path = themes/hugo-natrium-theme
+	url = https://github.com/mobybit/hugo-natrium-theme
