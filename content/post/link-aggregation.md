@@ -1,5 +1,6 @@
 ---
 title: "链路聚合"
+slug: "link-aggregation"
 date: 2018-05-15T12:22:34+08:00
 categories: ['Tutorial', 'Networking']
 tags: ['bonding', 'link aggregation']
