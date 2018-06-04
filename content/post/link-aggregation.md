@@ -76,7 +76,9 @@ A1. 解决方案：
 
 1. 确认 `/etc/network/interfaces` 中的 gateway 只设置了一次；
 2. 执行：
-3. sudo ip addr flush dev XXX
+    ```bash
+    $ sudo ip addr flush dev XXX
+    ```
 
 Q2. 在 Ubuntu Desktop 下，通过 `/etc/network/interfaces` 配置网络会与 GUI 下的 NetworkManager 服务冲突，我们需要关闭并禁用这个服务：
 ```
