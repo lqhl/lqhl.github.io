@@ -13,7 +13,7 @@ pygmentsStyle = "native"
     tag = "tags"
 
 [permalinks]
-    post = "/:slug/"
+    post = "/post/:slug/"
     page = "/:slug/"
 
 [[menu.main]]
