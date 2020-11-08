@@ -1,7 +1,7 @@
 baseURL = "https://lqhl.github.io/"
 languageCode = "zh-Hans"
 title = "Qin's Blog"
-theme = "hugo-natrium-theme"
+theme = "tale"
 preserveTaxonomyNames = true
 rssLimit = 10
 paginate = 10
@@ -19,17 +19,12 @@ pygmentsStyle = "native"
 [[menu.main]]
     name = "About"
     url = "/about/"
-    weight = -110
-
-[[menu.main]]
-    name = "Tags"
-    url = "/tags"
-    weight = -120
+    weight = 0
 
 [[menu.main]]
     name = "Categories"
     url = "/categories"
-    weight = -130
+    weight = 0
 
 [params]
     description = ""
