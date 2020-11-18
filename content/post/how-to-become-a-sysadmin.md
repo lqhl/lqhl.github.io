@@ -2,8 +2,8 @@
 title: "如何成为系统管理员（sysadmin）？"
 date: 2018-05-31T20:50:11+08:00
 slug: "how-to-become-a-sysadmin"
-categories: ['Tutorial', 'Linux']
 tags: ['sysadmin', 'linux']
+comments: true
 ---
 
 ## Linux 入门学习
