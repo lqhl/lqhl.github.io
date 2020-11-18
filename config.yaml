@@ -1,4 +1,4 @@
-baseUrl: "https://lqhl.github.io"
+baseUrl: "https://lqhl.github.io/"
 title: "Qin's Blog"
 author: "Qin Liu"
 languageCode: "zh-Hans"
@@ -11,14 +11,14 @@ params:
 menu:
   main:
   - {name: "Home", url: "/", identifier: "home", weight: 1}
-  - {name: "Post", url: "/post", identifier: "post", weight: 3}
-  - {name: "Tag", url: "/tags", identifier: "tag", weight: 4}
+  - {name: "Post", url: "/post/", identifier: "post", weight: 3}
+  - {name: "Tag", url: "/tags/", identifier: "tag", weight: 4}
   - {name: "RSS", url: "/index.xml", identifier: "rss", weight: 5}
-  - {name: "About", url: "/about", identifier: "address-card", weight: 10}
+  - {name: "About", url: "/about/", identifier: "address-card", weight: 10}
 
 permalinks:
-  post: "/post/:slug"
-  page: "/:slug"
+  post: "/post/:slug/"
+  page: "/:slug/"
 
 taxonomies:
   category: categories
