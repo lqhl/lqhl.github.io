@@ -21,7 +21,7 @@ permalinks:
   page: "/:slug/"
 
 taxonomies:
-  category: categories
+  # category: categories
   tag: tags
 
 # Enable syntax highlighting.

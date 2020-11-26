@@ -2,7 +2,6 @@
 title: "Linux Network Tuning - 10 GE"
 slug: linux-network-tuning-10ge
 date: 2018-09-14T20:26:21+08:00
-draft: false
 tags: ['linux', 'networking']
 comments: true
 ---
@@ -20,24 +19,28 @@ comments: true
 ### 用 iperf 测试网速
 
 在 Server-A 上：
-```
-$ iperf3 -s -p 12000 -i1
+
+```bash
+iperf3 -s -p 12000 -i1
 ```
 
 在 Client-B 上：
-```
-$ iperf3 -c storage0002 -p 12000 -i1 -t 30
+
+```bash
+iperf3 -c storage0002 -p 12000 -i1 -t 30
 ```
 
 ### 用 fio 测试 NFS 的性能
 
 在 Client-B 上 mount NFS（假设 Server-A 在 `/srv/nfs` 上配置了一个 NFS）：
-```
-$ sudo mount 10.1.1.1:/srv/nfs /mnt/tmp -v
+
+```bash
+sudo mount 10.1.1.1:/srv/nfs /mnt/tmp -v
 ```
 
 Fio 的测试文件 `read.fio`:
-```
+
+```ini
 [global]
 bs=2M
 iodepth=1
@@ -57,19 +60,22 @@ name=read
 ```
 
 运行 fio 测试：
-```
-$ fio read.fio
+
+```bash
+fio read.fio
 ```
 
 ### Ubuntu 默认配置下的测试结果
 
 iperf 的速度：
-```
+
+```text
 - - - - - - - - - - - - - - - - - - - - - - - - -
 [ ID] Interval           Transfer     Bandwidth       Retr
 [  4]   0.00-30.00  sec  32.9 GBytes  9.41 Gbits/sec  291             sender
 [  4]   0.00-30.00  sec  32.9 GBytes  9.41 Gbits/sec                  receiver
 ```
+
 可以看到用 iperf 测试时，基本还是把 10 GE 的带宽用满了。
 
 用 fio 在 NFS 上的测试结果是: `7.5 Gbits/sec`！大大的低于我们的预期。
@@ -79,12 +85,14 @@ iperf 的速度：
 TCP Tuning 可以参考 ESnet 的经验：https://fasterdata.es.net/host-tuning/linux/test-measurement-host-tuning/
 
 Step 1. 配置  Jumbo frames（参考 https://askubuntu.com/a/122835）：
-```
-$ ip link set <NIC> mtu 9000  # <NIC> 是对外的网卡名称（比如 eth0）
+
+```bash
+ip link set <NIC> mtu 9000  # <NIC> 是对外的网卡名称（比如 eth0）
 ```
 
 Step 2. 调整 kernel 中网络相关的参数，修改 `/etc/sysctl.conf`：
-```
+
+```ini
 # increase TCP max buffer size setable using setsockopt()
 # allow testing with 256MB buffers
 net.core.rmem_max = 268435456 
@@ -107,31 +115,35 @@ net.core.default_qdisc = fq
 ```
 
 使我们对 `/etc/sysctl.conf` 的改动生效：
-```
-$ sysctl -p
-$ service nfs-server restart # 因为我们要用 fio 测试 NFS，所以重启一下 NFS 服务
+
+```bash
+sysctl -p
+service nfs-server restart # 因为我们要用 fio 测试 NFS，所以重启一下 NFS 服务
 ```
 
 Step 3. 增大 TCP 的 Transmit Queue Length (txqueuelen)
-```
-$ ifconfig <NIC> txqueuelen 10000  # <NIC> 是对外的网卡名称（比如 eth0）
+
+```bash
+ifconfig <NIC> txqueuelen 10000  # <NIC> 是对外的网卡名称（比如 eth0）
 ```
 
 修改 `/etc/rc.local`，添加以下这行：
-```
+
+```bash
 /sbin/ifconfig <NIC> txqueuelen 10000  # <NIC> 是对外的网卡名称（比如 eth0）
 ```
-
 
 ### 优化后的测试结果
 
 iperf 的测试结果:
-```
+
+```text
 - - - - - - - - - - - - - - - - - - - - - - - - -
 [ ID] Interval           Transfer     Bandwidth       Retr
 [  4]   0.00-30.00  sec  34.6 GBytes  9.90 Gbits/sec  419             sender
 [  4]   0.00-30.00  sec  34.6 GBytes  9.90 Gbits/sec                  receiver
 ```
+
 iperf 的结果只是稍微高了一点（提升空间本来也不大了）。
 
 用 fio 在 NFS 上的测试结果：`9.76 Gbits/sec`。NFS 的性能提升是巨大的，比较有用的一个改动应该是 jumbo frames。

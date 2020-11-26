@@ -1,7 +1,7 @@
 ---
 title: "如何成为系统管理员（sysadmin）？"
-date: 2018-05-31T20:50:11+08:00
 slug: "how-to-become-a-sysadmin"
+date: 2018-05-31T20:50:11+08:00
 tags: ['sysadmin', 'linux']
 comments: true
 ---
@@ -16,7 +16,7 @@ comments: true
 
 * [鳥哥的 Linux 私房菜 — 基礎學習篇](http://linux.vbird.org/linux_basic/)
 * [The Linux Command Line by William E. Shotts, Jr.](http://linuxcommand.org/tlcl.php)
-	* [中文版](http://billie66.github.io/TLCL/book/index.html)
+  * [中文版](http://billie66.github.io/TLCL/book/index.html)
 
 寻求帮助：
 
@@ -29,7 +29,7 @@ comments: true
 Reddit 上有一个非常好的 list，列出了成为一名 Linux 系统管理员需要学习的内容，可以作为进阶学习的参考：[How did you get your start? : linuxadmin](https://www.reddit.com/r/linuxadmin/comments/2s924h/how_did_you_get_your_start/cnnw1ma/)。
 
 > This is what I tell people to do, who ask me "how do I learn to be a Linux sysadmin?".  
-> 
+>
 > 1) Set up a KVM hypervisor.  
 > 2) Inside of that KVM hypervisor, install a Spacewalk server. Use CentOS 6 as the distro for all work below. (For bonus points, set up errata importation on the CentOS channels, so you can properly see security update advisory information.)  
 > 3) Create a VM to provide named and dhcpd service to your entire environment. Set up the dhcp daemon to use the Spacewalk server as the pxeboot machine (thus allowing you to use Cobbler to do unattended OS installs). Make sure that every forward zone you create has a reverse zone associated with it. Use something like "internal.virtnet" (but not ".local") as your internal DNS zone.  
@@ -50,7 +50,7 @@ Reddit 上有一个非常好的 list，列出了成为一名 Linux 系统管理�
 > 18) Now go back, reference your documents, and set up a Puppet Razor profile that hooks into each of these things to allow you to recreate, from scratch, each individual server.  
 > 19) Destroy every secondary machine you've created and use the above profile to recreate them, joining them to the clusters as needed.  
 > 20) Bonus exercise: create three more VMs. A CentOS 5, 6, and 7 machine. On each of these machines, set them up to allow you to create custom RPMs and import them into the Spacewalk server instance. Ensure your Puppet configurations work for all three and produce like-for-like behaviors.  
-> 
+>
 > Do these things and you will be fully exposed to every aspect of Linux Enterprise systems administration. Do them well and you will have the technical expertise required to seek "Senior" roles. If you go whole-hog crash-course full-time it with no other means of income, I would expect it would take between 3 and 6 months to go from "I think I'm good with computers" to achieving all of these -- assuming you're not afraid of IRC and google (and have neither friends nor family ...).  
 
 ## 其它知识
@@ -60,7 +60,7 @@ Reddit 上有一个非常好的 list，列出了成为一名 Linux 系统管理�
 学习资料：
 
 * Reddit 上关于学习 Cloud 的路线：[So, you want to learn AWS? AKA, “How do I learn to be a Cloud Engineer?”](https://www.reddit.com/r/sysadmin/comments/8inzn5/so_you_want_to_learn_aws_aka_how_do_i_learn_to_be/)
-	* 中文版：[ 一文掌握AWS，成为云计算工程师](https://mp.weixin.qq.com/s/rD5_EGUv7fth5y6mCxzZ0Q)
+  * 中文版：[一文掌握AWS，成为云计算工程师](https://mp.weixin.qq.com/s/rD5_EGUv7fth5y6mCxzZ0Q)
 * Qwiklabs Labs 提供一系列的实践教程：[Home | Qwiklabs](https://qwiklabs.com/?locale=en)
 
 ### 分布式环境下的监控与日志
@@ -76,4 +76,3 @@ Reddit 上有一个非常好的 list，列出了成为一名 Linux 系统管理�
 * [TiDB Ansible 部署方案| PingCAP](https://pingcap.com/docs-cn/op-guide/ansible-deployment/)
 * [离线 TiDB Ansible 部署方案| PingCAP](https://pingcap.com/docs-cn/op-guide/offline-ansible-deployment/)
 * [TiDB中的混沌实践](https://mp.weixin.qq.com/s?__biz=MzIzNjUxMzk2NQ==&mid=2247489285&idx=1&sn=5431d872482793f07404b2428e70dc0d&chksm=e8d7e8c7dfa061d14dc3040e8e63a2b1fb0346b15518178e41ad9511151200e2a7a802958fba&scene=27#wechat_redirect)
-

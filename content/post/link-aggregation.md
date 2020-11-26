@@ -10,17 +10,20 @@ comments: true
 以下是我参考 [Ubuntu Bonding](https://help.ubuntu.com/community/UbuntuBonding) 后在 Ubuntu 16.04 上配置的步骤：
 
 1. 安装：
-    ```
-    $ sudo apt-get install ifenslave
+
+    ```bash
+    sudo apt-get install ifenslave
     ```
 
 2. 载入提供 bonding 的 kernel module：
-    ```
-    $ sudo modprobe bonding
+
+    ```bash
+    sudo modprobe bonding
     ```
 
 3. 在电脑启动时自动载入 `bonding` 模块，将 `bonding` 加入 `/etc/modules`：
-    ```
+
+    ```ini
     # /etc/modules: kernel modules to load at boot time.
     #
     # This file contains the names of kernel modules that should be loaded
@@ -30,7 +33,8 @@ comments: true
     ```
 
 4. 配置 `/etc/network/interfaces`：
-    ```
+
+    ```bash
     # This file describes the network interfaces available on your system
     # and how to activate them. For more information, see interfaces(5).
 
@@ -60,14 +64,16 @@ comments: true
 5. bond-mode 有多重选择，参考 [Ubuntu Bonding](https://help.ubuntu.com/community/UbuntuBonding)
 
 6. 重启网络服务：
-    ```
-    $ sudo service networking restart
+
+    ```bash
+    sudo service networking restart
     ```
 
 ## FAQ
 
 Q1. 错误信息：
-```
+
+```text
 RTNETLINK answers: File exists
 Failed to bring up XXX
 ```
@@ -76,12 +82,14 @@ A1. 解决方案：
 
 1. 确认 `/etc/network/interfaces` 中的 gateway 只设置了一次；
 2. 执行：
+
     ```bash
-    $ sudo ip addr flush dev XXX
+    sudo ip addr flush dev XXX
     ```
 
 Q2. 在 Ubuntu Desktop 下，通过 `/etc/network/interfaces` 配置网络会与 GUI 下的 NetworkManager 服务冲突，我们需要关闭并禁用这个服务：
-```
-$ sudo systemctl stop NetworkManager.service
-$ sudo systemctl disable NetworkManager.service
+
+```bash
+sudo systemctl stop NetworkManager.service
+sudo systemctl disable NetworkManager.service
 ```
