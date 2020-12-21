@@ -3,7 +3,6 @@ title: "Linux Network Tuning - 10 GE"
 slug: linux-network-tuning-10ge
 date: 2018-09-14T20:26:21+08:00
 draft: false
-categories: ['Tutorial', 'Networking']
 tags: ['linux', 'networking']
 comments: true
 ---
