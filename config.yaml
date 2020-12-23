@@ -1,12 +1,9 @@
 baseUrl: "https://lqhl.github.io/"
-title: "Qin's Blog"
-author: "Qin Liu"
+title: "巴别之塔"
+author: "lqhl"
 languageCode: "zh-Hans"
 theme: ezhil
 enableRobotsTXT: true
-
-params:
-  title: "Qin's Blog"
 
 menu:
   main:
@@ -43,7 +40,7 @@ summaryLength: 20
 
 params:
   # Blog subtitle which appears below blog title. Supports markdown.
-  subtitle: "Blog by [Qin Liu](https://lqhl.me)"
+  subtitle: "九百六十万平方公里土地，五千年文明，十三亿人口……如果要建一座通天塔的话，再没有比这里更理想的地基了……"
 
   # Content types which are included in home page recent posts list.
   mainSections: ["post"]
@@ -59,7 +56,7 @@ params:
 
   # Switch to dark mode or auto detect mode from OS (Optional).
   # "dark" will set mode to dark and "auto" will switch to dark mode if OS is in dark mode.
-  mode: "dark" # "dark" or "auto"
+  mode: "auto" # "dark" or "auto"
 
   # Custom CSS added to default styles. Files added to `static` folder is copied as it is to
   # root by Hugo. For example if you have custom CSS file under `static/css/custom.css` then
