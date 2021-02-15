@@ -82,9 +82,9 @@ iperf 的速度：
 
 ## 调整 Linux 的 TCP 协议栈
 
-TCP Tuning 可以参考 ESnet 的经验：https://fasterdata.es.net/host-tuning/linux/test-measurement-host-tuning/
+TCP Tuning 可以参考 ESnet 的经验：<https://fasterdata.es.net/host-tuning/linux/test-measurement-host-tuning/>
 
-Step 1. 配置  Jumbo frames（参考 https://askubuntu.com/a/122835）：
+Step 1. 配置  Jumbo frames（参考 <https://askubuntu.com/a/122835>）：
 
 ```bash
 ip link set <NIC> mtu 9000  # <NIC> 是对外的网卡名称（比如 eth0）
