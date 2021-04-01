@@ -1,9 +1,8 @@
 ---
 title: 深度学习自动编译和优化技术调研
 date: 2020-12-21T23:07:35+08:00
-slug: "a-survey-on-deep-learning-compiler-and-optimization"
-tags: ["research", "deep learning", "system"]
-comments: true
+slug: a-survey-on-deep-learning-compiler-and-optimization
+tags: ["research", "deeplearning", "system"]
 ---
 
 在[学习 OSDI 2020 论文](/osdi-2020)的时候，看到好几篇关于深度学习自动编译和优化的文章，产生了兴趣，于是把从陈天奇的 TVM 开始的系列文章梳理了一下。

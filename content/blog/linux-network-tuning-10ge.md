@@ -1,9 +1,8 @@
 ---
-title: "Linux Network Tuning - 10 GE"
+title: Linux Network Tuning - 10 GE
 slug: linux-network-tuning-10ge
 date: 2018-09-14T20:26:21+08:00
 tags: ['linux', 'networking']
-comments: true
 ---
 
 最近在研究如何为公司搭建 40/100 GE，在购买新设备之前，决定先在现有的 10 GE 网络上做一些 benchmark。

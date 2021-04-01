@@ -1,11 +1,10 @@
-+++
-title = "介绍 Hydro - 新一代的 Serverless Computing"
-slug = "hydro"
-date = "2021-02-17T13:03:57+08:00"
-description = "Hydro 是 Joseph M. Hellerstein 教授在 UC Berkeley 的 RISELab（算是 AMPLab 的继承者）开展的项目。"
-
-tags = ["system", "cloud computing", "serverless computing"]
-+++
+---
+title: 新一代的 Serverless Computing - Hydro 项目介绍
+slug: hydro
+date: 2021-02-17T13:03:57+08:00
+description: Hydro 是 Joseph M. Hellerstein 教授在 UC Berkeley 的 RISELab（算是 AMPLab 的继承者）开展的项目。
+tags: ['research', 'system', 'serverless']
+---
 
 [Hydro](https://hydro-project.github.io/) 是 [Joseph M. Hellerstein](https://dsf.berkeley.edu/jmh/index.html) 教授在 UC Berkeley 的 [RISELab](https://rise.cs.berkeley.edu/)（算是 [AMPLab](https://amplab.cs.berkeley.edu/) 的继承者）开展的项目。要了解 Hydro，可以从他们最近的一篇总结性博客开始看起：[The State of the Serverless Art](https://medium.com/riselab/the-state-of-the-serverless-art-78a4f02951eb)，然后再看它主页上罗列的论文。
 
