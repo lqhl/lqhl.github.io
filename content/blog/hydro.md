@@ -20,7 +20,7 @@ Hydro 项目的目标是**创造一个适合于云计算的编程环境**。目�
 
 ## 解决之道 - Anna 和 Cloudburst
 
-当然，Joe 的目标并不是贬低无服务器计算，而是希望通过 Hydro 项目构建出一个他理想中的无服务器计算平台：**stateful serverless infrastructure**。首先，Joe 和他的博士生 [Chenggang Wu](http://cgwu.io/) 构建了名为 [[Anna]] 的 key-value 存储系统（Anna 分别获得了 ICDE'18 和 VLDB'19 的最佳论文奖）。下面说一下 Anna 的主要特性：
+当然，Joe 的目标并不是贬低无服务器计算，而是希望通过 Hydro 项目构建出一个他理想中的无服务器计算平台：**stateful serverless infrastructure**。首先，Joe 和他的博士生 [Chenggang Wu](http://cgwu.io/) 构建了名为 Anna 的 key-value 存储系统（Anna 分别获得了 ICDE'18 和 VLDB'19 的最佳论文奖）。下面说一下 Anna 的主要特性：
 
 - Anna V0 是一个 in-memory key-value store[^anna-v0]
   - 两个特点有
@@ -31,7 +31,7 @@ Hydro 项目的目标是**创造一个适合于云计算的编程环境**。目�
   - 自动伸缩（autoscaling），可以根据 workload 自动的扩大或缩小集群的大小。
   - 支持多层级的存储介质，比如 RAM、SSD、硬盘，这样就使得 Anna 的应用范围更广泛了，比如可以在一些场合代替 Amazon DynamoDB 这样的分布式数据库。
 
-基于 Anna，Joe 和他的另一个博士生 [Vikram Sreekanti](https://www.vikrams.io/) 构建了一个名为 [[Cloudburst]] 的 stateful serverless infrastructure，发表在 VLDB'20[^cloudburst]。Cloudburst 试图解决之前提到的现有无服务器计算的两个缺点:
+基于 Anna，Joe 和他的另一个博士生 [Vikram Sreekanti](https://www.vikrams.io/) 构建了一个名为 Cloudburst 的 stateful serverless infrastructure，发表在 VLDB'20[^cloudburst]。Cloudburst 试图解决之前提到的现有无服务器计算的两个缺点:
 
 - **为运行在 Cloudburst 上的 function 提供状态（state）存储**，且满足 **logical disaggregation with physical co-location of compute and storage (LDPC)**
   - **Logical disaggregation**: 状态存储是基于 Anna 的 key-value store，抽象简单，性能强，并且计算和存储是分离的
@@ -45,6 +45,12 @@ Hydro 项目的目标是**创造一个适合于云计算的编程环境**。目�
 
 - 提出并实现了无服务器计算的 atomic fault-tolerance 概念[^fault]
 - 基于 Cloudburst，构建了名为 Cloudflow 的机器学习模型在线推理系统[^prediction]
+
+## 更新
+
+> update on Apr 25, 2021
+
+随着最近对数据库的学习，感觉 Anna 和 Hydro 并不像他们宣称的那样「美好」。首先，在 Anna 的论文中，它与 Cassandra 做了比较，借此说明了它出众可扩展性。但存在一个 C++ 实现的 Cassandra 版本 [ScyllaDB](https://www.scylladb.com/)，Anna 没有做比较。而 ScyllaDB 在 2015 年就开源了，2016 年已经出了正式的 v1.0，我觉得 Anna 做实验并不存在什么困难。如果 Anna 直接和同样是 C++ 实现的 ScyllaDB 比较，而不是跟 Java 实现的 Cassandra 比较，我感觉它的性能就没什么优势了。而且 ScyllaDB 所使用的高并发异步框架 [Seastar](http://seastar.io/) 的思想跟 Anna 的 Actor 模型也基本一样。Anna 唯一胜出的地方可能就是对于 causal consistency 的支持（但我觉得 ScyllaDB 要实现可能并不困难，只是需求不大）。另外一点，Cloudburst 的存储是基于 Anna 的，而 Anna 不支持 strong consistency，感觉在应用范围上是有问题的。
 
 ## 参考文献
 
