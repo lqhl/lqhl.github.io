@@ -1,6 +1,8 @@
 baseUrl: "https://lqhl.github.io/"
 theme: hugo-bearblog
 
+publishDir: docs
+
 title: "巴别之塔"
 author: "lqhl"
 copyright: "Copyright © 2021, lqhl."
