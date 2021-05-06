@@ -5,7 +5,7 @@ slug: a-survey-on-deep-learning-compiler-and-optimization
 tags: ["research", "deeplearning", "system"]
 ---
 
-在墨奇科技，我们需要将一些 AI 算法移植到边缘端的设备，这些设备往往使用 ARM 架构的 CPU 和一些特殊的边缘端推理芯片（NPU）。这个时候，我们可以使用 NPU 产商提供的推理框架（例如瑞芯微的 [rknn-toolkit](https://github.com/rockchip-linux/rknn-toolkit)）或 TensorFlow Lite这样的通用边缘端推理框架。另一个选择是使用*深度学习自动编译和优化技术*，自动化的生成对模型和硬件最适合的机器代码。我们将这个领域内的一些论文和开源项目进行了梳理。
+在墨奇科技，我们需要将一些 AI 算法移植到边缘端的设备，这些设备往往使用 ARM 架构的 CPU 和一些特殊的边缘端推理芯片（NPU）。这个时候，我们可以使用 NPU 产商提供的推理框架（例如瑞芯微的 [rknn-toolkit](https://github.com/rockchip-linux/rknn-toolkit)）或 TensorFlow Lite 这样的通用边缘端推理框架。另一个选择是使用*深度学习自动编译和优化技术*，自动化的生成对模型和硬件最适合的机器代码。我们将这个领域内的一些论文和开源项目进行了梳理。
 
 ## 研究背景和动机
 
