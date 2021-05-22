@@ -38,7 +38,7 @@ RedLeaf: Isolation and Communication in a Safe Operating System 也是一个用 
  Correctness Theseus: an Experiment in Operating System Structure and State Management 传统的 OS 中不同进程会共享很多状态，这会导致 state spill 的问题，即一个系统服务的崩溃，可能导致整个系统的崩溃，这时候其他不使用这个系统服务的进程的数据也会丢失。作者利用 Rust 语言中 memory ownership model 的特性实现了不同内核模块之间的 isolation 和 zero-cost state transfer，从而增强了系统的 evolvability 和 availability，能够实现比传统 OS 更强的 live evolution (我理解为加强版的的 live update) 和 fault recovery。他们通过一种名为 intralingual 的设计，让 Rust 编译器来保证他们的操作系统（名为 Theseus）实现是正确的。
 RedLeaf: Isolation and Communication in a Safe Operating System 也是一个用 Rust 写的 OS，利用 Rust 的内存安全特性，不依赖硬件而实现了不同模块的隔离。在这个名为 RedLeaf 的 OS 上，作者实现了 10Gbps 网卡和 NVMe SSD 的驱动程序，并达到了和 DPDK/SPDK 相同的性能。说明 Rust 写的 OS 既安全，性能又好。"><meta itemprop="datePublished" content="2020-11-08T23:32:00&#43;08:00" />
 <meta itemprop="dateModified" content="2020-11-08T23:32:00&#43;08:00" />
-<meta itemprop="wordCount" content="951">
+<meta itemprop="wordCount" content="1026">
 <meta itemprop="keywords" content="research,OSDI,system," />
 <meta name="referrer" content="no-referrer-when-downgrade" />
 
@@ -313,6 +313,9 @@ VeriSafeKV 的数据结构是基于 B^ε-tree 而非常见的 LSM。它的插入
 <h3 id="a-unified-architecture-for-accelerating-distributed-dnn-training-in-heterogeneous-gpucpu-clusters">A Unified Architecture for Accelerating Distributed DNN Training in Heterogeneous GPU/CPU Clusters</h3>
 <p>这是字节跳动公司搞的一个名为 <em>BytePS</em> 的分布式 DNN 训练框架，训练的大部分工作还是由 GPU 来完成，特点是利用闲置的 CPU 资源来加速 aggregating gradients（Intel CPU 的 AVX 指令集比较适合做这个）。值得一提的是，作者里有传说中大陆第一篇 SIGCOMM 的作者<a href="http://sysnetome.com/index.html">郭传雄</a>，他最近两篇在字节跳动 AI Lab 的工作都是关于机器学习系统的。</p>
 <h2 id="consensus">Consensus</h2>
+<h3 id="virtual-consensus-in-delos">Virtual Consensus in Delos</h3>
+<p>本文的一作是 <a href="https://maheshba.bitbucket.io/">Mahesh Balakrishnan</a>，在这篇论文中，他基于他之前关于 shared log 的几篇工作（NSDI'12 CORFU, OSDI'18 FuzzyLog），在 Facebook 实现了一个基于 shared log 的分布式强一致的存储层 Delos。Delos 在 Facebook 的地位类似于 Google 的 Chubby 和开源的 etcd 和 Zookeeper。</p>
+<p>Delos 的 shared log 使用一个叫 VirtualLog 的接口，而 VirtualLog 提供一层新的抽象（All problems in computer science can be solved by another level of indirection），可以将多个 loglet 串在一起，这样 Delos 可以很容易的从一个 shared log 实现切换到另一个。比如可能早期的 Delos 基于用 Zookeeper 实现的 shared log，性能较差，利用 VirtualLog，它可以很容易的切换到性能更好的 shared log 而不影响 production 的使用。此外，这篇论文介绍了 Facebook 实现的几种 loglet，包括 <code>NativeLoglet</code> 和 <code>StripedLoglet</code>。</p>
 <h2 id="bugs">Bugs</h2>
 <h2 id="scheduling">Scheduling</h2>
 <h2 id="machine-learning-2">Machine Learning 2</h2>
