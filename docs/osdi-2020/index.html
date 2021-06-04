@@ -38,7 +38,7 @@ RedLeaf: Isolation and Communication in a Safe Operating System 也是一个用 
  Correctness Theseus: an Experiment in Operating System Structure and State Management 传统的 OS 中不同进程会共享很多状态，这会导致 state spill 的问题，即一个系统服务的崩溃，可能导致整个系统的崩溃，这时候其他不使用这个系统服务的进程的数据也会丢失。作者利用 Rust 语言中 memory ownership model 的特性实现了不同内核模块之间的 isolation 和 zero-cost state transfer，从而增强了系统的 evolvability 和 availability，能够实现比传统 OS 更强的 live evolution (我理解为加强版的的 live update) 和 fault recovery。他们通过一种名为 intralingual 的设计，让 Rust 编译器来保证他们的操作系统（名为 Theseus）实现是正确的。
 RedLeaf: Isolation and Communication in a Safe Operating System 也是一个用 Rust 写的 OS，利用 Rust 的内存安全特性，不依赖硬件而实现了不同模块的隔离。在这个名为 RedLeaf 的 OS 上，作者实现了 10Gbps 网卡和 NVMe SSD 的驱动程序，并达到了和 DPDK/SPDK 相同的性能。说明 Rust 写的 OS 既安全，性能又好。"><meta itemprop="datePublished" content="2020-11-08T23:32:00&#43;08:00" />
 <meta itemprop="dateModified" content="2020-11-08T23:32:00&#43;08:00" />
-<meta itemprop="wordCount" content="1026">
+<meta itemprop="wordCount" content="1153">
 <meta itemprop="keywords" content="research,OSDI,system," />
 <meta name="referrer" content="no-referrer-when-downgrade" />
 
@@ -307,6 +307,17 @@ VeriSafeKV 的数据结构是基于 B^ε-tree 而非常见的 LSM。它的插入
 <p>这篇论文的背景类似 Semeru，也是 <em>Disaggregated Memory</em>。他们提供了一个 far memory system，叫做 <em>AIFM</em> (application-integrated far memory)。AIFM 可以让程序员使用别的服务器上的 far memory，只要他们在代码中使用相应的 API。在 local memory 不够用的时候，AIFM 会自动交换 local/far memory。他们 claim 比目前最好的 kernel-integrated, paging- based far memory system Fastswap[EuroSys’20] 快了 61x。</p>
 <p>值得一提的是，本文的一作 <a href="https://zainryan.github.io/">Zhenyuan Ruan</a>，也是 Semerus 的作者之一，他在这次 OSDI 发了三篇论文。他的老板 <a href="http://www.abelay.me/">Adam Belay</a> 更是发了四篇……</p>
 <h2 id="consistency">Consistency</h2>
+<h3 id="performance-optimal-read-only-transactions">Performance-Optimal Read-Only Transactions</h3>
+<p>存储系统中的 read-only transaction 比 simple read 昂贵，因为需要 coordination 来维护 transaction 内多次 read 看到的都是同一个 snapshot。在 web 应用中，read-only transaction 是必须的，并且 read-only transaction 占据了总访问的 99% 以上。所以本文希望优化 read-only transaction 的 latency 和 throughput。</p>
+<p>从算法角度分析 read-only transaction 的 overhead 来自：blocking、messages、metadata。因此理想的 read-only transaction 应该有 NOC 的性质</p>
+<ul>
+<li>Non-blocking: 减少等待导致的 latency 和 throughput 下降</li>
+<li>One-round communication: 减少 latency</li>
+<li>Constant metadata: 需要保存的 metadata 不随着 transaction 数量增长</li>
+</ul>
+<p>结合起来是 <em>non-blocking messages that complete in one-round with constant metadata</em>。</p>
+<p>作者提出了 NOCS 理论，S 代表最强的一致性等级 strict serializabiliity。作者用反证法证明了不可能同时达到 NOC 和 S。作者提出了一种新的设计 <strong>PORT</strong>，可以同时达到 NOC 和一种比 strict serializability 稍弱的一致性等级 process-order serializability。</p>
+<p>作者在 ScyllaDB (Cassandra in C++) 和 Eiger (Stronger Semantics for Low-Latency Geo-Replicated Storage, NSDI'13) 上实现了 PORT。然后用 YCSB benchmark 进行测试，比较了 simple read 和 read-only transaction 的性能，用 PORT 实现的 read-only transaction 最多只有 8% 的 overhead，性能基本和 simple read 一样，大大超越了用 OCC 实现的 read-only transaction。</p>
 <h2 id="machine-learning-1">Machine Learning 1</h2>
 <h3 id="serving-dnns-like-clockwork-performance-predictability-from-the-bottom-up">Serving DNNs like Clockwork: Performance Predictability from the Bottom Up</h3>
 <p>在 GPU 上，DNN 模型的 inference 时间是非常固定的。但是之前的 distributed model serving system（例如 Clipper[NSDI’17]）在实现 low-latency inference 的时候，没有利用模型 inference 时间固定这一特性，而是使用 over-provision 和 fair queueing 之类的手段，增加了资源的消耗。本文提出的 <em>Clockwork</em> 利用模型 inference 时间固定这一特性，可以为数千个不同的模型提供 inference 服务，同时保证 99.9999% 的 request 延迟低于 100ms。在保证非常好的 SLO 的同时，Clockwork 也做到了不同用户之间的 performance isolation。</p>
